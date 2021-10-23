@@ -36,17 +36,23 @@ public struct CutAudioRequest: Request {
     return request
   }
   
+  // 500 - error on backend
+  // 400 - no ID provided
+  // 406 - invalid
+  // 200 - okay
   public func publisher(for baseURL: URL) -> some Publisher {
     let request = request(for: baseURL)
     return URLSession.shared
       .dataTaskPublisher(for: request)
       .tryMap { output -> Data in
-        guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 else {
-          fatalError("oop")
+        guard
+          let response = output.response as? HTTPURLResponse,
+          response.statusCode == 200
+        else {
+          fatalError(response.statusCode)
         }
         return output.data
       }
-//      .map { $0.data }
       .decode(type: CutResponse.self, decoder: JSONDecoder())
   }
 }
