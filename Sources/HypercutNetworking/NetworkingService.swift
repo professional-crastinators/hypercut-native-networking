@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 public struct NetworkingService {
-  init(baseURL: String) {
+  public init(baseURL: String) {
     self.baseURL = URL(string: baseURL)!
   }
-  var baseURL: URL
+  public var baseURL: URL
 }
