@@ -49,7 +49,7 @@ public struct CutAudioRequest: Request {
           let response = output.response as? HTTPURLResponse,
           response.statusCode == 200
         else {
-          fatalError(response.statusCode)
+          fatalError("Invalid response")
         }
         return output.data
       }
