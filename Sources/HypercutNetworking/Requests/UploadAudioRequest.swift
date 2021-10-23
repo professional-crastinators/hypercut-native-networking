@@ -24,9 +24,9 @@ public struct UploadAudioRequest: Request {
     
     var request = URLRequest.init(url: url)
     request.httpMethod = "POST"
+    let boundary = "Boundary-\(NSUUID().uuidString)"
     request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
     
-    let boundary = "Boundary-\(NSUUID().uuidString)"
     
     let fname = "hypercut-audio"
     let mimetype = "audio/mpeg"
