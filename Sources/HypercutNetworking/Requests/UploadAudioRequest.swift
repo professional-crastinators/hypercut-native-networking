@@ -24,6 +24,7 @@ public struct UploadAudioRequest: Request {
     
     var request = URLRequest.init(url: url)
     request.httpMethod = "POST"
+    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
     
     let boundary = "Boundary-\(NSUUID().uuidString)"
     
@@ -32,9 +33,6 @@ public struct UploadAudioRequest: Request {
     
     let body = NSMutableData()
     
-    body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-    body.append("Content-Disposition:form-data; name=\"test\"\r\n\r\n".data(using: String.Encoding.utf8)!)
-    body.append("hi\r\n".data(using: String.Encoding.utf8)!)
     body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
     body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
     body.append("Content-Disposition:form-data; name=\"audio\"; filename=\"\(fname)\"\r\n".data(using: String.Encoding.utf8)!)
